@@ -7,7 +7,7 @@ from selenium.webdriver.firefox.options import Options as OptionsFirefox
 from selenium.webdriver.remote.webdriver import WebDriver
 
 
-# для запуска pytest -s -v --browser_name=firefox test_name.py
+# пример запуска pytest -s -v --browser_name=firefox --language=ru test_name.py
 # позволяет автоматически импортировать фикстуры из данного модуля в разные тесты
 def chrome_launch(request) -> Tuple[WebDriver, str]:
     options = OptionsChrome()
