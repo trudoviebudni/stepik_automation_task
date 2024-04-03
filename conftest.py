@@ -5,10 +5,11 @@ from selenium import webdriver
 from selenium.webdriver.chrome.options import Options as OptionsChrome
 from selenium.webdriver.firefox.options import Options as OptionsFirefox
 from selenium.webdriver.remote.webdriver import WebDriver
-
-
 # пример запуска pytest -s -v --browser_name=firefox --language=ru test_name.py
 # позволяет автоматически импортировать фикстуры из данного модуля в разные тесты
+
+
+# Инициализирует язык и драйвер chrome
 def chrome_launch(request) -> Tuple[WebDriver, str]:
     options = OptionsChrome()
     selected_language = request.config.getoption("language")
@@ -17,6 +18,7 @@ def chrome_launch(request) -> Tuple[WebDriver, str]:
     return browser, selected_language
 
 
+# Инициализирует язык и драйвер firefox
 def firefox_launch(request) -> Tuple[WebDriver, str]:
     options = OptionsFirefox()
     selected_language = request.config.getoption("language")
@@ -25,6 +27,7 @@ def firefox_launch(request) -> Tuple[WebDriver, str]:
     return browser, selected_language
 
 
+# здесь хранятся функции для инициализации запрашиваемого браузера
 supported_browsers = {
     'chrome': chrome_launch,
     'firefox': firefox_launch
@@ -38,6 +41,7 @@ def pytest_addoption(parser):
                      help="Choose language: for example: '--language=en' or '--language=ru'")
 
 
+# Проверяем есть ли запрашиваемый браузер и запускаем его либо райзим ошибку
 @pytest.fixture(scope="function")
 def browser(request):
     browser_name = request.config.getoption("browser_name")
